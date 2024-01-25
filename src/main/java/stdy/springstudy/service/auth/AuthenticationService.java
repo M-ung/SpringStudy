@@ -3,7 +3,7 @@ package stdy.springstudy.service.auth;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import stdy.springstudy.config.auth.PrincipalDetails;
+import stdy.springstudy.core.config.auth.PrincipalDetails;
 
 @Service
 public class AuthenticationService {

@@ -1,4 +1,4 @@
-package stdy.springstudy.config.jwt;
+package stdy.springstudy.core.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -11,7 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import stdy.springstudy.config.auth.PrincipalDetails;
+import stdy.springstudy.core.config.auth.PrincipalDetails;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.user.UserRepository;
 

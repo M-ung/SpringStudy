@@ -1,9 +1,9 @@
-package stdy.springstudy.config;
+package stdy.springstudy.core.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import stdy.springstudy.filter.MyFilter;
+import stdy.springstudy.core.filter.MyFilter;
 
 @Configuration
 public class FilterConfig {

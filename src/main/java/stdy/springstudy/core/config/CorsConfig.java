@@ -1,4 +1,4 @@
-package stdy.springstudy.config;
+package stdy.springstudy.core.config;
 
 
 import org.springframework.context.annotation.Bean;

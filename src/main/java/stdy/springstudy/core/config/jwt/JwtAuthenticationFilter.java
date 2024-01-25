@@ -1,4 +1,4 @@
-package stdy.springstudy.config.jwt;
+package stdy.springstudy.core.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,8 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import stdy.springstudy.config.auth.PrincipalDetails;
+import stdy.springstudy.core.config.auth.PrincipalDetails;
+import stdy.springstudy.entitiy.jwt.RefreshToken;
 import stdy.springstudy.entitiy.user.User;
+import stdy.springstudy.repository.token.TokenRepository;
 
 import java.io.IOException;
 import java.util.Date;
@@ -27,6 +29,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
 
     // login 요청을 하면 로그인 시도를 위해서 실행되는 함수
     @Override
@@ -58,8 +61,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             e.printStackTrace();
         }
 
-
-
         return null;
     }
     // attemptAuthentication 실행 후 인증이 정상적으로 되었으면 successfulAuthentication 함수가 실행된다.
@@ -70,19 +71,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         // RSA 방식이 아닌, Hash 암호 방식이다.
-        String jwtToken = JWT.create()
-//                .withSubject(principalDetails.getUsername())
-                .withSubject("cos토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME)) // 만료 시간 10분
-                .withClaim("id", principalDetails.getUser().getId())
+        String accessToken = JWT.create()
+                .withSubject("accessToken")
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.ACCESS_EXPIRATION_TIME)) // 만료 시간 10분
                 .withClaim("userEmail", principalDetails.getUser().getUserEmail())
+                .withClaim("role", principalDetails.getUser().getRoles())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET)); // 고유한 값
 
-        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
+        String refreshToken = JWT.create()
+                .withSubject("refreshToken")  // subject 변경
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.REFRESH_EXPIRATION_TIME)) // 만료 시간 변경
+                .withClaim("userEmail", principalDetails.getUser().getUserEmail())
+                .withClaim("role", principalDetails.getUser().getRoles())
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + accessToken);
+        tokenRepository.save(new RefreshToken(refreshToken));
 
         // 토큰을 JSON 형태로 만들어서 응답 본문에 추가
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("jwtToken", jwtToken);
+        tokenMap.put("jwtToken", accessToken);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
     }

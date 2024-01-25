@@ -1,4 +1,4 @@
-package stdy.springstudy.config;
+package stdy.springstudy.core.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import stdy.springstudy.config.jwt.JwtAuthenticationFilter;
-import stdy.springstudy.config.jwt.JwtAuthorizationFilter;
+import stdy.springstudy.core.config.jwt.JwtAuthenticationFilter;
+import stdy.springstudy.core.config.jwt.JwtAuthorizationFilter;
+import stdy.springstudy.repository.token.TokenRepository;
 import stdy.springstudy.repository.user.UserRepository;
 
 @Configuration
@@ -21,6 +22,8 @@ import stdy.springstudy.repository.user.UserRepository;
 public class SecurityConfig {
     private final CorsConfig corsConfig;
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,7 +48,7 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic
                         .disable() // basic 방식은 id와 pw를 보내기 떄문에 노출이 될 가능성이 크다. 그래서 bearer token 방법을 쓴다.
                 )
-                .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager, tokenRepository))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository))
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/api/v1/user/**")

@@ -1,4 +1,4 @@
-package stdy.springstudy.filter;
+package stdy.springstudy.core.filter;
 
 import jakarta.servlet.*;
 import java.io.IOException;

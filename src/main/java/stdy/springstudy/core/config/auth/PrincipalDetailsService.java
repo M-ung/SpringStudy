@@ -1,4 +1,4 @@
-package stdy.springstudy.config.auth;
+package stdy.springstudy.core.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
