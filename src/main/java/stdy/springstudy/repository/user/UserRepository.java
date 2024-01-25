@@ -6,4 +6,5 @@ import stdy.springstudy.entitiy.user.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserName(String userName);
     User findByUserEmail(String userEmail);
+    boolean existsByUserEmail(String userEmail);
 }

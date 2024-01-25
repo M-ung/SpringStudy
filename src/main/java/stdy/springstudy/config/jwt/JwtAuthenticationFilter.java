@@ -37,14 +37,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 3. PrincipalDetails를 세션에 담고 (권한 관리를 위해서)
         // 4. JWT 토큰을 만들어서 응답하면 됨.
         try {
-//            BufferedReader br = request.getReader();
-//            String input = null;
-//
-//            while((input = br.readLine()) != null) {
-//                System.out.println(input);
-//            }
-            // 위 방식을 아래 방식으로 간단하게 구현할 수 있다.
-
             ObjectMapper om = new ObjectMapper();
             User user = om.readValue(request.getInputStream(), User.class);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserEmail(), user.getUserPassword());
