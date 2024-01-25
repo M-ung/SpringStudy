@@ -3,8 +3,6 @@ package stdy.springstudy.service.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import stdy.springstudy.dto.user.UserJoinDTO;
@@ -17,7 +15,6 @@ import stdy.springstudy.repository.user.UserRepository;
 @Slf4j
 public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
-    final private ModelMapper modelMapper;
     final private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public void join(UserJoinDTO userJoinDTO) {
@@ -31,4 +28,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         log.info("[log] 회원가입 완료 : " + user.getUserEmail() + "   " + user.getUserPassword() + "  " + user.getUserName());
     }
+
+    @Override
+    public void delete(String userEmail) {
+        User findUser = userRepository.findByUserEmail(userEmail);
+        userRepository.delete(findUser);
+    }
+
+
 }

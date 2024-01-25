@@ -19,7 +19,7 @@ public class PrincipalDetails implements UserDetails {
         return user;
     }
 
-    public String getUserEmail() {
+    public String getEmail() {
         return user.getUserEmail();
     }
 
