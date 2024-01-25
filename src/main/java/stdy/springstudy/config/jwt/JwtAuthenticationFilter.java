@@ -41,7 +41,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             User user = om.readValue(request.getInputStream(), User.class);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserEmail(), user.getUserPassword());
 
-
             // PrincipalDetailsService 의 loadUserByUsername() 함수가 실행된다.
             // 그 후 정상이면 authentication이 리턴된다.
             // DB에 있는 username과 password가 일치한다.

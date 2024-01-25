@@ -40,7 +40,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         // JWT 토큰을 검증을 해서 정상적인 사용자인지 확인
-        String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace( JwtProperties.TOKEN_PREFIX, "");
+        String jwtToken = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
         String userEmail = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("userEmail").asString(); // jwtToken에서 userEmail을 꺼내온다.
 
         // 서명이 정상적으로 됨
