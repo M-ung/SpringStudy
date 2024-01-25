@@ -36,8 +36,18 @@ public class UserApiController {
     @PostMapping("/delete")
     @MyLog
     public ResponseEntity<?> delete() {
-        String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
-        userService.delete(currentUserEmail);
+        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
+        userService.delete(userEmail);
         return ResponseEntity.ok("회원탈퇴 성공");
+    }
+
+    // 회원조회
+    @GetMapping("/find")
+    @MyLog
+    public ResponseEntity<?> find() {
+        String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
+        UserResponseDTO.UserFindDTO userFind = userService.find(currentUserEmail);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userFind);
+        return ResponseEntity.ok(responseDTO);
     }
 }

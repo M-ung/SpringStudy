@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import stdy.springstudy.core.annotation.MyLog;
 import stdy.springstudy.core.exception.Exception400;
+import stdy.springstudy.core.exception.Exception404;
 import stdy.springstudy.core.exception.Exception500;
 import stdy.springstudy.dto.user.UserRequestDTO;
 import stdy.springstudy.dto.user.UserResponseDTO;
@@ -50,5 +51,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public UserResponseDTO.UserFindDTO find(String userEmail) {
+        try {
+            User findUser = userRepository.findByUserEmail(userEmail);
+            return new UserResponseDTO.UserFindDTO(findUser);
+        }catch (Exception e) {
+            throw new Exception404("회원조회 실패 : "+e.getMessage());
+        }
+    }
 }

@@ -20,4 +20,18 @@ public class UserResponseDTO {
             this.userName = user.getUserName();
         }
     }
+
+    @Setter
+    @Getter
+    public static class UserFindDTO {
+        private Long id;
+        private String userEmail;
+        private String userName;
+
+        public UserFindDTO(User user) {
+            this.id = user.getId();
+            this.userEmail = user.getUserEmail();
+            this.userName = user.getUserName();
+        }
+    }
 }
