@@ -18,6 +18,8 @@ import stdy.springstudy.entitiy.user.User;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 // 스프링 시큐리티에서 UsernamePasswordAuthenticationFilter 가 있음.
 // login 요청해서 username, password 전송하면 (post)
@@ -74,9 +76,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME)) // 만료 시간 10분
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("userEmail", principalDetails.getUser().getUserEmail())
-                .withClaim("userEmail", principalDetails.getUser().getUserEmail())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET)); // 고유한 값
 
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
+
+        // 토큰을 JSON 형태로 만들어서 응답 본문에 추가
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("jwtToken", jwtToken);
+        response.setContentType("application/json");
+        new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
     }
 }
