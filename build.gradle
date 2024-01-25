@@ -24,7 +24,7 @@ repositories {
 dependencies {
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // SpringWEB
+    // SpringWeb
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
     // Lombok
@@ -53,6 +53,11 @@ dependencies {
 
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 
+    // JWT 추가
+    implementation 'com.auth0:java-jwt:3.18.1' //
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2' // jjwt API
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.2' // jjwt 구현체
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2' // jjwt의 Jackson 지원
 }
 
 tasks.named('bootBuildImage') {

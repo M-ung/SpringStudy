@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "heart")
 public class Like {
     @Id @GeneratedValue
     @Column(name = "like_id")
