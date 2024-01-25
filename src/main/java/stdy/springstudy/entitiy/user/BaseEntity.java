@@ -22,7 +22,7 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String roles = "ROLE_USER";
+    private String role = "ROLE_USER";
 
     @CreatedDate
     @Column(updatable = false)
@@ -31,9 +31,13 @@ public abstract class BaseEntity {
     @LastModifiedDate
     private LocalDateTime updateDate;
 
+    public void updateRole(String role) {
+        this.role = role;
+    }
+
     public List<String> getRoleList() {
-        if (this.roles.length() > 0) {
-            return Arrays.asList(this.roles.split(","));
+        if (this.role.length() > 0) {
+            return Arrays.asList(this.role.split(","));
         }
         return new ArrayList<>();
     }

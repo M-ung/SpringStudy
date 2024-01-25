@@ -17,4 +17,17 @@ public class UserRequestDTO {
             return new User(this.userEmail, this.userPassword, this.userName);
         }
     }
+
+    @Setter
+    @Getter
+    public static class UserUpdateDTO {
+        private String userEmail;
+        private String userName;
+        private String role;
+
+        // DTO를 User 엔티티로 변환하는 메소드
+        public User toEntity() {
+            return new User(this.userEmail, this.userName, this.role);
+        }
+    }
 }

@@ -75,14 +75,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject("accessToken")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.ACCESS_EXPIRATION_TIME)) // 만료 시간 10분
                 .withClaim("userEmail", principalDetails.getUser().getUserEmail())
-                .withClaim("role", principalDetails.getUser().getRoles())
+                .withClaim("role", principalDetails.getUser().getRole())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET)); // 고유한 값
 
         String refreshToken = JWT.create()
                 .withSubject("refreshToken")  // subject 변경
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.REFRESH_EXPIRATION_TIME)) // 만료 시간 변경
                 .withClaim("userEmail", principalDetails.getUser().getUserEmail())
-                .withClaim("role", principalDetails.getUser().getRoles())
+                .withClaim("role", principalDetails.getUser().getRole())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + accessToken);

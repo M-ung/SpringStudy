@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @MyLog
+    @Transactional
     public void delete(String userEmail) {
         try {
             User findUser = userRepository.findByUserEmail(userEmail);
@@ -52,6 +53,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    @MyLog
+    public UserResponseDTO.UserUpdateDTO update(UserRequestDTO.UserUpdateDTO userUpdateDTO, String userEmail) {
+        if(!userUpdateDTO.getUserEmail().equals(userEmail)) {
+            throw new Exception400("userEmail", "회원이 맞지 않습니다.");
+        }
+
+        try {
+            User findUser = userRepository.findByUserEmail(userEmail);
+            findUser.updateName(userUpdateDTO.getUserName());
+            findUser.updateRole(userUpdateDTO.getRole());
+
+            return new UserResponseDTO.UserUpdateDTO(findUser);
+        }catch (Exception e){
+            throw new Exception500("회원수정 실패 : "+e.getMessage());
+        }
+    }
+
+    @Override
+    @MyLog
     public UserResponseDTO.UserFindDTO find(String userEmail) {
         try {
             User findUser = userRepository.findByUserEmail(userEmail);

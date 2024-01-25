@@ -41,12 +41,22 @@ public class UserApiController {
         return ResponseEntity.ok("회원탈퇴 성공");
     }
 
+    // 회원수정
+    @PostMapping("/update")
+    @MyLog
+    public ResponseEntity<?> update(@RequestBody UserRequestDTO.UserUpdateDTO userUpdateDTO) {
+        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
+        UserResponseDTO.UserUpdateDTO userUpdate = userService.update(userUpdateDTO, userEmail);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userUpdate);
+        return ResponseEntity.ok(responseDTO);
+    }
+
     // 회원조회
     @GetMapping("/find")
     @MyLog
     public ResponseEntity<?> find() {
-        String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
-        UserResponseDTO.UserFindDTO userFind = userService.find(currentUserEmail);
+        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
+        UserResponseDTO.UserFindDTO userFind = userService.find(userEmail);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userFind);
         return ResponseEntity.ok(responseDTO);
     }

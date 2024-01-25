@@ -27,11 +27,27 @@ public class UserResponseDTO {
         private Long id;
         private String userEmail;
         private String userName;
+        private String role;
 
         public UserFindDTO(User user) {
             this.id = user.getId();
             this.userEmail = user.getUserEmail();
             this.userName = user.getUserName();
+            this.role = user.getRole();
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class UserUpdateDTO {
+        private String userEmail;
+        private String userName;
+        private String role;
+
+        public UserUpdateDTO(User user) {
+            this.userEmail = user.getUserEmail();
+            this.userName = user.getUserName();
+            this.role = user.getRole();
         }
     }
 }

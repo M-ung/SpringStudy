@@ -11,7 +11,8 @@ public interface UserService {
     void delete(String userEmail);
 
     // 회원수정
-    UserResponseDTO.UserFindDTO find(String userEmail);
+    UserResponseDTO.UserUpdateDTO update(UserRequestDTO.UserUpdateDTO userUpdateDTO, String userEmail);
 
     // 회원조회
+    UserResponseDTO.UserFindDTO find(String userEmail);
 }
