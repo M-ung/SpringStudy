@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             ObjectMapper om = new ObjectMapper();
             User user = om.readValue(request.getInputStream(), User.class);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getUserPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserEmail(), user.getUserPassword());
 
 
             // PrincipalDetailsService 의 loadUserByUsername() 함수가 실행된다.
@@ -82,7 +82,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject("cos토큰")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME)) // 만료 시간 10분
                 .withClaim("id", principalDetails.getUser().getId())
-                .withClaim("userName", principalDetails.getUser().getUserName())
+                .withClaim("userEmail", principalDetails.getUser().getUserEmail())
+                .withClaim("userEmail", principalDetails.getUser().getUserEmail())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET)); // 고유한 값
 
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);

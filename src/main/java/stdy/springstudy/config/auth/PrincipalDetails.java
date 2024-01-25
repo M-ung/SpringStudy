@@ -19,6 +19,10 @@ public class PrincipalDetails implements UserDetails {
         return user;
     }
 
+    public String getUserEmail() {
+        return user.getUserEmail();
+    }
+
     @Override
     public String getPassword() {
         return user.getUserPassword();
@@ -28,7 +32,6 @@ public class PrincipalDetails implements UserDetails {
     public String getUsername() {
         return user.getUserName();
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

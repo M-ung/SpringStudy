@@ -14,9 +14,9 @@ import stdy.springstudy.repository.user.UserRepository;
 public class PrincipalDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        System.out.println("PrincipalDetailsService의 loadUserByUsername");
-        User userEntity = userRepository.findByUserName(userName);
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+        System.out.println("PrincipalDetailsService의 loadUserByUserEmail");
+        User userEntity = userRepository.findByUserEmail(userEmail); // UserEmail 가져온다.
         return new PrincipalDetails(userEntity);
     }
 }
