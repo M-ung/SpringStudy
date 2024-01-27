@@ -12,14 +12,10 @@ public class User extends BaseEntity {
     private String userPassword;
     private String userName;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
 //    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 //    private Like like;
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
 
     public User() {
     }
@@ -32,5 +28,12 @@ public class User extends BaseEntity {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userName = userName;
+        setProfile();
+    }
+
+    private void setProfile() {
+        this.profile = new Profile();
+        this.profile.setNickName(this.userName);
+        this.profile.setProfileImg("starter");
     }
 }

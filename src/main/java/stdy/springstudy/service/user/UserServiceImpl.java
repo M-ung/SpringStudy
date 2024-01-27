@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return new UserResponseDTO.UserJoinDTO(user);
         }catch (Exception e){
-            throw new Exception500("회원가입 실패 : "+e.getMessage());
+            throw new Exception500("회원 가입 실패 : "+e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             User findUser = userRepository.findByUserEmail(userEmail);
             userRepository.delete(findUser);
         }catch (Exception e){
-            throw new Exception500("회원탈퇴 실패 : "+e.getMessage());
+            throw new Exception500("회원 탈퇴 실패 : "+e.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
             return new UserResponseDTO.UserUpdateDTO(findUser);
         }catch (Exception e){
-            throw new Exception500("회원수정 실패 : "+e.getMessage());
+            throw new Exception500("회원 수정 실패 : "+e.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
             User findUser = userRepository.findByUserEmail(userEmail);
             return new UserResponseDTO.UserFindDTO(findUser);
         }catch (Exception e) {
-            throw new Exception404("회원조회 실패 : "+e.getMessage());
+            throw new Exception404("회원 조회 실패 : "+e.getMessage());
         }
     }
 }
