@@ -25,8 +25,8 @@ public class ProfileApiController {
     @MyLog
     public ResponseEntity<?> update(@RequestBody ProfileRequestDTO.ProfileUpdateDTO profileUpdateDTO) {
         Long profileId = getProfileId();
-        ProfileResponseDTO.ProfileUpdateDTO profileUpdate = profileService.update(profileUpdateDTO, profileId);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(profileUpdate);
+        ProfileResponseDTO.ProfileUpdateDTO uploadProfile = profileService.update(profileUpdateDTO, profileId);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(uploadProfile);
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -35,8 +35,8 @@ public class ProfileApiController {
     @MyLog
     public ResponseEntity<?> find() {
         Long profileId = getProfileId();
-        ProfileResponseDTO.ProfileFindDTO profileFind = profileService.find(profileId);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(profileFind);
+        ProfileResponseDTO.ProfileFindDTO findProfile = profileService.find(profileId);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(findProfile);
         return ResponseEntity.ok(responseDTO);
     }
 

@@ -8,6 +8,7 @@ import stdy.springstudy.core.annotation.MyLog;
 import stdy.springstudy.dto.response.ResponseDTO;
 import stdy.springstudy.dto.user.UserRequestDTO;
 import stdy.springstudy.dto.user.UserResponseDTO;
+import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.service.auth.AuthenticationService;
 import stdy.springstudy.service.user.UserServiceImpl;
 
@@ -24,8 +25,8 @@ public class UserApiController {
     @PostMapping("/join")
     @MyLog
     public ResponseEntity<?> join(@RequestBody UserRequestDTO.UserJoinDTO userJoinDTO) {
-        UserResponseDTO.UserJoinDTO userJoin = userService.join(userJoinDTO);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(userJoin);
+        UserResponseDTO.UserJoinDTO joinUser = userService.join(userJoinDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(joinUser);
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -33,7 +34,7 @@ public class UserApiController {
     @PostMapping("/delete")
     @MyLog
     public ResponseEntity<?> delete() {
-        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
+        String userEmail = getUserEmail();
         userService.delete(userEmail);
         return ResponseEntity.ok("회원탈퇴 성공");
     }
@@ -42,9 +43,9 @@ public class UserApiController {
     @PostMapping("/update")
     @MyLog
     public ResponseEntity<?> update(@RequestBody UserRequestDTO.UserUpdateDTO userUpdateDTO) {
-        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
-        UserResponseDTO.UserUpdateDTO userUpdate = userService.update(userUpdateDTO, userEmail);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(userUpdate);
+        String userEmail = getUserEmail();
+        UserResponseDTO.UserUpdateDTO updateUser = userService.update(userUpdateDTO, userEmail);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(updateUser);
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -52,9 +53,15 @@ public class UserApiController {
     @GetMapping("/find")
     @MyLog
     public ResponseEntity<?> find() {
-        String userEmail = authenticationService.getCurrentAuthenticatedUserEmail();
-        UserResponseDTO.UserFindDTO userFind = userService.find(userEmail);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(userFind);
+        String userEmail = getUserEmail();
+        UserResponseDTO.UserFindDTO findUser = userService.find(userEmail);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(findUser);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    private String getUserEmail() {
+        User user = authenticationService.getCurrentAuthenticatedUser();
+        String userEmail = user.getUserEmail();
+        return userEmail;
     }
 }
