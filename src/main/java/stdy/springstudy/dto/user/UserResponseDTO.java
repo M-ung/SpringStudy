@@ -28,12 +28,16 @@ public class UserResponseDTO {
         private String userEmail;
         private String userName;
         private String role;
+        private String nickName;
+        private String profileImg;
 
         public UserFindDTO(User user) {
             this.id = user.getId();
             this.userEmail = user.getUserEmail();
             this.userName = user.getUserName();
             this.role = user.getRole();
+            this.nickName = user.getProfile().getNickName();
+            this.profileImg = user.getProfile().getProfileImg();
         }
     }
 
