@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import stdy.springstudy.entitiy.category.Category;
 import stdy.springstudy.entitiy.user.User;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
     @Id @GeneratedValue
     @Column(name = "post_id")
@@ -34,15 +36,23 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Post(Long id, String title, String content, List<Category> categories, User user) {
-    }
+    public Post() {
 
+    }
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
     public Post(String title, String content, List<Category> categories) {
         this.title = title;
         this.content = content;
         this.categories = categories;
     }
 
+
+    public void setPostUser(User user)  {
+        this.user = user;
+    }
     public void updatePost(String title, String content, List<Category> categories) {
 
         this.title = title;

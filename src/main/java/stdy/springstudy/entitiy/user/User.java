@@ -2,7 +2,11 @@ package stdy.springstudy.entitiy.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.profile.Profile;
+
+import java.util.List;
+
 @Entity
 @Getter
 public class User extends BaseEntity {
@@ -14,21 +18,24 @@ public class User extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
+
 //    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 //    private Like like;
 
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
     public User() {
     }
-
-    public void updateName(String name) {
-        this.userName = name;
-    }
-
     public User(String userEmail, String userPassword, String userName) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userName = userName;
         setProfile();
+    }
+
+    public void updateName(String name) {
+        this.userName = name;
     }
 
     private void setProfile() {

@@ -30,10 +30,11 @@ public class PostServiceImpl implements PostService {
     @MyLog
     public PostResponseDTO.PostUploadDTO upload(PostRequestDTO.PostUploadDTO postUploadDTO, String userEmail) {
         User findUser = getUser(userEmail);
+        System.out.println("postUploadDTO = " + postUploadDTO);
 
         try {
-            postUploadDTO.setUser(findUser);
             Post post = postUploadDTO.toEntity();
+            post.setPostUser(findUser);
             postRepository.save(post);
             return new PostResponseDTO.PostUploadDTO(post);
         } catch (Exception e){

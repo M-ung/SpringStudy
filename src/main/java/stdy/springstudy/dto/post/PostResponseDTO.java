@@ -92,6 +92,15 @@ public class PostResponseDTO {
             this.nickName = post.getUser().getProfile().getNickName();
             this.profileImg = post.getUser().getProfile().getProfileImg();
         }
+
+        public PostFindOneDTO(Long id, String title, String content, LocalDateTime uploadDate, LocalDateTime updateDate, List<Category> categories) {
+            this.id = id;
+            this.title = title;
+            this.content = content;
+            this.uploadDate = uploadDate;
+            this.updateDate = updateDate;
+            this.categories = categories;
+        }
     }
     @Setter
     @Getter
