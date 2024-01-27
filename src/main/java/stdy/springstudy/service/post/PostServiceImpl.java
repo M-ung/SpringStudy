@@ -13,6 +13,7 @@ import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.post.PostRepository;
+import stdy.springstudy.repository.post.PostRepositoryImpl;
 import stdy.springstudy.repository.user.UserRepository;
 
 import java.util.Optional;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Slf4j
 public class PostServiceImpl implements PostService {
     final private PostRepository postRepository;
+    final private PostRepositoryImpl postRepositoryImpl;
     final private UserRepository userRepository;
 
     @Override
@@ -81,9 +83,9 @@ public class PostServiceImpl implements PostService {
     @Override
     @MyLog
     public PostResponseDTO.PostFindOneDTO findOne(Long postId) {
-        Post findPost = getPost(postId);
         try {
-            return new PostResponseDTO.PostFindOneDTO(findPost);
+            PostResponseDTO.PostFindOneDTO findPost = postRepositoryImpl.findPostWithUserByPostId(postId);
+            return findPost;
         } catch (Exception e) {
             throw new Exception404("게시물 조회 실패 : "+e.getMessage());
         }

@@ -24,8 +24,6 @@ public class PostApiController {
     @PostMapping("/upload")
     @MyLog
     public ResponseEntity<?> upload(@RequestBody PostRequestDTO.PostUploadDTO postUploadDTO) {
-        System.out.println("=========================");
-        System.out.println("postUploadDTO = " + postUploadDTO);
         String userEmail = getUserEmail();
         PostResponseDTO.PostUploadDTO uploadPost = postService.upload(postUploadDTO, userEmail);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(uploadPost);
@@ -61,8 +59,6 @@ public class PostApiController {
     }
 
     // 게시물 전체 조회
-
-
     private String getUserEmail() {
         User user = authenticationService.getCurrentAuthenticatedUser();
         String userEmail = user.getUserEmail();

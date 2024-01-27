@@ -62,26 +62,17 @@ public class PostResponseDTO {
         private String nickName;
         private String profileImg;
 
-        public PostFindOneDTO(Post post) {
-            this.id = post.getId();
-            this.title = post.getTitle();
-            this.content = post.getContent();
-            this.uploadDate = post.getUploadDate();
-            this.updateDate = post.getUpdateDate();
-            this.categories = post.getCategories();
-            this.userEmail = post.getUser().getUserEmail();
-            this.userName = post.getUser().getUserName();
-            this.nickName = post.getUser().getProfile().getNickName();
-            this.profileImg = post.getUser().getProfile().getProfileImg();
-        }
-
-        public PostFindOneDTO(Long id, String title, String content, LocalDateTime uploadDate, LocalDateTime updateDate, List<Category> categories) {
+        public PostFindOneDTO(Long id, String title, String content, LocalDateTime uploadDate, LocalDateTime updateDate, List<Category> categories, String userEmail, String userName, String nickName, String profileImg) {
             this.id = id;
             this.title = title;
             this.content = content;
             this.uploadDate = uploadDate;
             this.updateDate = updateDate;
             this.categories = categories;
+            this.userEmail = userEmail;
+            this.userName = userName;
+            this.nickName = nickName;
+            this.profileImg = profileImg;
         }
     }
 

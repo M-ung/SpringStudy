@@ -15,9 +15,6 @@ import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.user.UserRepository;
 import stdy.springstudy.repository.user.UserRepositoryImpl;
 
-import java.util.List;
-
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -79,7 +76,6 @@ public class UserServiceImpl implements UserService {
     @MyLog
     public UserResponseDTO.UserFindDTO find(String userEmail) {
         try {
-//            User findUser = userRepositoryImpl.findUserWithProfileByEmail(userEmail);
             UserResponseDTO.UserFindDTO findUser = userRepositoryImpl.findUserWithProfileByEmail(userEmail);
             System.out.println("findUser = " + findUser);
             return findUser;
