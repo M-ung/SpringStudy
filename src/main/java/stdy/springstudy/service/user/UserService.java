@@ -3,6 +3,8 @@ package stdy.springstudy.service.user;
 import stdy.springstudy.dto.user.UserRequestDTO;
 import stdy.springstudy.dto.user.UserResponseDTO;
 
+import java.util.List;
+
 public interface UserService {
     // 회원 가입
     UserResponseDTO.UserJoinDTO join(UserRequestDTO.UserJoinDTO userJoinDTO);

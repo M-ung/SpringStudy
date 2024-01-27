@@ -1,14 +1,10 @@
 package stdy.springstudy.dto.user;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import stdy.springstudy.dto.post.PostResponseDTO;
-import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -40,16 +36,14 @@ public class UserResponseDTO {
         private String profileImg;
         private List<PostResponseDTO.PostFindDTO> posts;
 
-            @QueryProjection
-            public UserFindDTO(Long id, String userEmail, String userName, String role, String nickName, String profileImg, List<PostResponseDTO.PostFindDTO> posts) {
-                this.id = id;
-                this.userEmail = userEmail;
-                this.userName = userName;
-                this.role = role;
-                this.nickName = nickName;
-                this.profileImg = profileImg;
-                this.posts = posts;
-            }
+        public UserFindDTO(Long id, String userEmail, String userName, String role, String nickName, String profileImg) {
+            this.id = id;
+            this.userEmail = userEmail;
+            this.userName = userName;
+            this.role = role;
+            this.nickName = nickName;
+            this.profileImg = profileImg;
+        }
     }
 
     @Setter

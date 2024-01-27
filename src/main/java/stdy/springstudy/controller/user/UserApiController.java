@@ -12,6 +12,8 @@ import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.service.auth.AuthenticationService;
 import stdy.springstudy.service.user.UserServiceImpl;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/user")

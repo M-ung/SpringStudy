@@ -15,6 +15,8 @@ import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.user.UserRepository;
 import stdy.springstudy.repository.user.UserRepositoryImpl;
 
+import java.util.List;
+
 
 @Service
 @Transactional(readOnly = true)

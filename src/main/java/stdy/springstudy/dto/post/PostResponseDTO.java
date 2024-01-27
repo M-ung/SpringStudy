@@ -50,24 +50,6 @@ public class PostResponseDTO {
     }
     @Setter
     @Getter
-    public class PostFindDTO {
-        private Long id;
-        private String title;
-        private String content;
-        private LocalDateTime uploadDate;
-        private LocalDateTime updateDate;
-        private List<Category> categories;
-        public PostFindDTO(Post post) {
-            this.id = post.getId();
-            this.title = post.getTitle();
-            this.content = post.getContent();
-            this.uploadDate = post.getUploadDate();
-            this.updateDate = post.getUpdateDate();
-            this.categories = post.getCategories();
-        }
-    }
-    @Setter
-    @Getter
     public static class PostFindOneDTO {
         private Long id;
         private String title;
@@ -100,6 +82,36 @@ public class PostResponseDTO {
             this.uploadDate = uploadDate;
             this.updateDate = updateDate;
             this.categories = categories;
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class PostFindDTO {
+        private Long id;
+        private String title;
+        private String content;
+        private LocalDateTime uploadDate;
+        private LocalDateTime updateDate;
+        private List<Category> categories;
+        public PostFindDTO() {
+        }
+
+        public PostFindDTO(Long id, String title, String content, LocalDateTime uploadDate, LocalDateTime updateDate, List<Category> categories) {
+            this.id = id;
+            this.title = title;
+            this.content = content;
+            this.uploadDate = uploadDate;
+            this.updateDate = updateDate;
+            this.categories = categories;
+        }
+        public PostFindDTO(Post post) {
+            this.id = post.getId();
+            this.title = post.getTitle();
+            this.content = post.getContent();
+            this.uploadDate = post.getUploadDate();
+            this.updateDate = post.getUpdateDate();
+            this.categories = post.getCategories();
         }
     }
     @Setter
