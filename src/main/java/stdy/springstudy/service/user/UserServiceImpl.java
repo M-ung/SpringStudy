@@ -13,6 +13,7 @@ import stdy.springstudy.dto.user.UserRequestDTO;
 import stdy.springstudy.dto.user.UserResponseDTO;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.user.UserRepository;
+import stdy.springstudy.repository.user.UserRepositoryImpl;
 
 
 @Service
@@ -21,6 +22,7 @@ import stdy.springstudy.repository.user.UserRepository;
 @Slf4j
 public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
+    final private UserRepositoryImpl userRepositoryImpl;
     final private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     @Transactional
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService {
             User user = userJoinDTO.toEntity();
             userRepository.save(user);
             return new UserResponseDTO.UserJoinDTO(user);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception500("회원 가입 실패 : "+e.getMessage());
         }
     }
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
         try {
             User findUser = userRepository.findByUserEmail(userEmail);
             userRepository.delete(findUser);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception500("회원 탈퇴 실패 : "+e.getMessage());
         }
     }
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
             findUser.updateRole(userUpdateDTO.getRole());
 
             return new UserResponseDTO.UserUpdateDTO(findUser);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception500("회원 수정 실패 : "+e.getMessage());
         }
     }
@@ -75,9 +77,10 @@ public class UserServiceImpl implements UserService {
     @MyLog
     public UserResponseDTO.UserFindDTO find(String userEmail) {
         try {
-            User findUser = userRepository.findByUserEmail(userEmail);
-            return new UserResponseDTO.UserFindDTO(findUser);
-        }catch (Exception e) {
+//            User findUser = userRepositoryImpl.findUserWithProfileByEmail(userEmail);
+            UserResponseDTO.UserFindDTO findUser = userRepositoryImpl.findUserWithProfileByEmail(userEmail);
+            return findUser;
+        } catch (Exception e) {
             throw new Exception404("회원 조회 실패 : "+e.getMessage());
         }
     }

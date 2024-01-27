@@ -1,9 +1,10 @@
 package stdy.springstudy.dto.user;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import stdy.springstudy.entitiy.user.User;
-
+@Data
 public class UserRequestDTO {
     @Setter
     @Getter

@@ -15,7 +15,7 @@ public class Profile {
     private Long id;
     private String nickName;
     private String profileImg;
-
-    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private User user;
+//
+//    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private User user;
 }
