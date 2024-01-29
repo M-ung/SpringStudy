@@ -15,10 +15,6 @@ import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.profile.ProfileRepository;
 import stdy.springstudy.repository.user.UserRepository;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class ProfileServiceImplTest {
