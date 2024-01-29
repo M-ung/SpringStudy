@@ -5,10 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import stdy.springstudy.core.annotation.MyLog;
+import stdy.springstudy.core.exception.Exception400;
 import stdy.springstudy.core.exception.Exception404;
+import stdy.springstudy.core.exception.Exception500;
 import stdy.springstudy.dto.comment.CommentRequestDTO;
 import stdy.springstudy.dto.comment.CommentResponseDTO;
-import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.entitiy.comment.Comment;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
@@ -34,11 +35,35 @@ public class CommentServiceImpl implements CommentService {
     public CommentResponseDTO.CommentUploadDTO commentOn(CommentRequestDTO.CommentUploadDTO commentUploadDTO, String userEmail, Long postId) {
         User findUser = getUser(userEmail);
         Post findPost = getPost(postId);
-        Comment comment = commentRepository.save(new Comment(findUser, findPost, commentUploadDTO.getContent()));
-        return new CommentResponseDTO.CommentUploadDTO(comment);
+
+        try {
+            Comment comment = commentRepository.save(new Comment(findUser, findPost, commentUploadDTO.getContent()));
+            return new CommentResponseDTO.CommentUploadDTO(comment);
+        } catch (Exception e){
+            throw new Exception500("댓글 달기 실패 : "+e.getMessage());
+        }
     }
 
     // 댓글 삭제
+    @Override
+    @MyLog
+    @Transactional
+    public void delete(Long commentId, String userEmail) {
+        Comment findComment = getComment(commentId);
+        User findUser = getUser(userEmail);
+
+        try {
+            if(findUser == findComment.getUser()) {
+                commentRepository.delete(findComment);
+            }
+            else {
+                throw new Exception400("user", "회원이 맞지 않습니다.");
+            }
+        }
+        catch (Exception e) {
+            throw new Exception500("댓글 삭제 실패 : "+e.getMessage());
+        }
+    }
 
     // 댓글 수정
 
@@ -61,5 +86,16 @@ public class CommentServiceImpl implements CommentService {
             throw new Exception404("해당 유저를 찾을 수 없습니다. User: " + findUser);
         }
         return findUser;
+    }
+
+    private Comment getComment(Long id) {
+        Optional<Comment> findComment = commentRepository.findById(id);
+        if(!findComment.isPresent()) {
+            throw new Exception404("해당 댓글을 찾을 수 없습니다. id: " + id);
+        }
+        else {
+            Comment comment = findComment.get();
+            return comment;
+        }
     }
 }

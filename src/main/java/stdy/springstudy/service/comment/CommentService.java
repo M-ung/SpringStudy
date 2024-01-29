@@ -8,6 +8,7 @@ public interface CommentService {
     CommentResponseDTO.CommentUploadDTO commentOn(CommentRequestDTO.CommentUploadDTO CommentUploadDTO, String userEmail, Long postId);
 
     // 댓글 삭제
+    void delete(Long commentId, String userEmail);
 
     // 댓글 수정
 

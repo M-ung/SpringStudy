@@ -33,6 +33,13 @@ public class CommentApiController {
     }
 
     // 댓글 삭제
+    @PostMapping("/delete/{commentId}")
+    @MyLog
+    public ResponseEntity<?> delete(@PathVariable Long commentId) {
+        String userEmail = getUserEmail();
+        commentService.delete(commentId, userEmail);
+        return ResponseEntity.ok("댓글 삭제 성공");
+    }
 
     // 댓글 수정
 

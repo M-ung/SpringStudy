@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import stdy.springstudy.core.exception.Exception404;
+import stdy.springstudy.core.exception.Exception500;
 import stdy.springstudy.entitiy.like.Like;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
@@ -27,28 +28,35 @@ public class LikeServiceImpl implements LikeService {
     public String toggle(Long postId, String userEmail) {
         User findUser = getUser(userEmail);
         Post findPost = getPost(postId);
+        try {
+            String result = likeRepository.findByUserAndPost(findUser, findPost).map(
+                    // 좋아요가 이미 존재할 경우
+                    like -> {
+                        likeRepository.delete(like);
+                        return findUser + "가 " + findPost + "에 좋아요를 취소함.";
+                    }
+            ).orElseGet(() -> {
+                // 좋아요가 없을 경우
+                likeRepository.save(new Like(findUser, findPost));
+                return findUser + "가 " + findPost + "에 좋아요를 누름.";
+            });
 
-        String result = likeRepository.findByUserAndPost(findUser, findPost).map(
-                // 좋아요가 이미 존재할 경우
-                like -> {
-                    likeRepository.delete(like);
-                    return findUser + "가 " + findPost + "에 좋아요를 취소함.";
-                }
-        ).orElseGet(() -> {
-            // 좋아요가 없을 경우
-            likeRepository.save(new Like(findUser, findPost));
-            return findUser + "가 " + findPost + "에 좋아요를 누름.";
-        });
-
-        return result;
+            return result;
+        } catch (Exception e){
+            throw new Exception500("좋아요 토글 실패 : "+e.getMessage());
+        }
     }
 
     @Override
     public String count(Long postId) {
-        long countLike = likeRepository.countByPostId(postId);
-        Post findPost = getPost(postId);
-        String result = findPost + "의 좋아요 갯수는 " + countLike + " 이다.";
-        return result;
+        try {
+            long countLike = likeRepository.countByPostId(postId);
+            Post findPost = getPost(postId);
+            String result = findPost + "의 좋아요 갯수는 " + countLike + " 이다.";
+            return result;
+        } catch (Exception e){
+            throw new Exception500("좋아요 조회 실패 : "+e.getMessage());
+        }
     }
 
     private Post getPost(Long id) {
