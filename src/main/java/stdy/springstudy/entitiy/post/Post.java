@@ -54,7 +54,6 @@ public class Post {
         this.user = user;
     }
     public void updatePost(String title, String content, List<Category> categories) {
-
         this.title = title;
         this.content = content;
         this.categories = categories;

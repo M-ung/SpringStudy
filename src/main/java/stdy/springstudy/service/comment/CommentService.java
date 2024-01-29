@@ -2,6 +2,8 @@ package stdy.springstudy.service.comment;
 
 import stdy.springstudy.dto.comment.CommentRequestDTO;
 import stdy.springstudy.dto.comment.CommentResponseDTO;
+import stdy.springstudy.dto.post.PostRequestDTO;
+import stdy.springstudy.dto.post.PostResponseDTO;
 
 public interface CommentService {
     // 댓글 달기
@@ -11,6 +13,7 @@ public interface CommentService {
     void delete(Long commentId, String userEmail);
 
     // 댓글 수정
+    CommentResponseDTO.CommentUpdateDTO update(CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, String userEmail, Long commentId);
 
     // 댓글 조회
 }

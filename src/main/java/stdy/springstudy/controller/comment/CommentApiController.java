@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import stdy.springstudy.core.annotation.MyLog;
 import stdy.springstudy.dto.comment.CommentRequestDTO;
 import stdy.springstudy.dto.comment.CommentResponseDTO;
-import stdy.springstudy.dto.post.PostRequestDTO;
-import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.dto.response.ResponseDTO;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.service.auth.AuthenticationService;
@@ -42,6 +40,14 @@ public class CommentApiController {
     }
 
     // 댓글 수정
+    @PostMapping("/update/{commentId}")
+    @MyLog
+    public ResponseEntity<?> update(@RequestBody CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, @PathVariable Long commentId) {
+        String userEmail = getUserEmail();
+        CommentResponseDTO.CommentUpdateDTO updateComment = commentService.update(commentUpdateDTO, userEmail, commentId);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(updateComment);
+        return ResponseEntity.ok(responseDTO);
+    }
 
     // 댓글 조회
 

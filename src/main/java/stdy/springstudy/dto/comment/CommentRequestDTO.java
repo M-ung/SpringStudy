@@ -12,4 +12,10 @@ public class CommentRequestDTO {
     public static class CommentUploadDTO {
         private String content;
     }
+
+    @Setter
+    @Getter
+    public static class CommentUpdateDTO {
+        private String content;
+    }
 }

@@ -10,6 +10,7 @@ import stdy.springstudy.core.exception.Exception404;
 import stdy.springstudy.core.exception.Exception500;
 import stdy.springstudy.dto.comment.CommentRequestDTO;
 import stdy.springstudy.dto.comment.CommentResponseDTO;
+import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.entitiy.comment.Comment;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
@@ -66,8 +67,29 @@ public class CommentServiceImpl implements CommentService {
     }
 
     // 댓글 수정
+    @Override
+    @MyLog
+    @Transactional
+    public CommentResponseDTO.CommentUpdateDTO update(CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, String userEmail, Long commentId) {
+        User findUser = getUser(userEmail);
+        Comment findComment = getComment(commentId);
+
+        try {
+            if(findUser == findComment.getUser()) {
+                findComment.updateComment(commentUpdateDTO.getContent());
+            }
+            else {
+                throw new Exception400("user", "회원이 맞지 않습니다.");
+            }
+
+            return new CommentResponseDTO.CommentUpdateDTO(findComment);
+        } catch (Exception e){
+            throw new Exception500("댓글 수정 실패 : "+e.getMessage());
+        }
+    }
 
     // 댓글 조회
+
 
     private Post getPost(Long id) {
         Optional<Post> findPost = postRepository.findById(id);

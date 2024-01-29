@@ -2,7 +2,9 @@ package stdy.springstudy.entitiy.comment;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
@@ -20,6 +22,10 @@ public class Comment {
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime commentDate;
+
+    @LastModifiedDate
+    private LocalDateTime updateDate;
+
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +43,10 @@ public class Comment {
     public Comment(User findUser, Post findPost, String content) {
         this.user = findUser;
         this.post = findPost;
+        this.content = content;
+    }
+
+    public void updateComment(String content) {
         this.content = content;
     }
 }
