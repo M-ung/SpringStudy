@@ -29,7 +29,7 @@ class UserServiceImplTest {
     @Test
     @Transactional
     @DisplayName("회원 가입 테스트")
-    void join() {
+    void join() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
@@ -48,7 +48,7 @@ class UserServiceImplTest {
     @Test
     @Transactional
     @DisplayName("회원 삭제 테스트")
-    void delete() {
+    void delete() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
@@ -69,7 +69,7 @@ class UserServiceImplTest {
     @Test
     @Transactional
     @DisplayName("회원 수정 테스트")
-    void update() {
+    void update() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
@@ -88,7 +88,7 @@ class UserServiceImplTest {
     @Test
     @Transactional
     @DisplayName("회원 조회 테스트")
-    void find() {
+    void find() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
@@ -107,7 +107,7 @@ class UserServiceImplTest {
     @Test
     @DisplayName("없는 회원 조회 예외 테스트")
     @Transactional
-    public void notExistUserFindTest() {
+    public void notExistUserFindTest() throws Exception {
         // given
         Long userNo = 99L;
 

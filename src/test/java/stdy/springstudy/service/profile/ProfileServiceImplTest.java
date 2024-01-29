@@ -28,7 +28,7 @@ class ProfileServiceImplTest {
     @Test
     @Transactional
     @DisplayName("프로필 수정 테스트")
-    void update() {
+    void update() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
@@ -50,7 +50,7 @@ class ProfileServiceImplTest {
     @Test
     @Transactional
     @DisplayName("프로필 조회 테스트")
-    void find() {
+    void find() throws Exception {
         // given
         UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
         userJoinDTO.setUserEmail("test@example.com");
