@@ -48,6 +48,12 @@ public class Post {
         this.content = content;
         this.categories = categories;
     }
+    public Post(Long postId, String title, String content, List<Category> categories) {
+        this.id = postId;
+        this.title = title;
+        this.content = content;
+        this.categories = categories;
+    }
 
 
     public void setPostUser(User user)  {
