@@ -59,6 +59,9 @@ public class PostApiController {
     }
 
     // 게시물 전체 조회
+
+
+
     private String getUserEmail() {
         User user = authenticationService.getCurrentAuthenticatedUser();
         String userEmail = user.getUserEmail();

@@ -55,5 +55,4 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 
         return userFindDTO;
     }
-
 }
