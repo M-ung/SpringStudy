@@ -1,5 +1,6 @@
 package stdy.springstudy.controller.comment;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import stdy.springstudy.dto.response.ResponseDTO;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.service.auth.AuthenticationService;
 import stdy.springstudy.service.comment.CommentServiceImpl;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -25,7 +28,7 @@ public class CommentApiController {
     @MyLog
     public ResponseEntity<?> commentOn(@RequestBody CommentRequestDTO.CommentUploadDTO commentUploadDTO, @PathVariable Long postId) {
         String userEmail = getUserEmail();
-        CommentResponseDTO.CommentUploadDTO commentOnComment = commentService.commentOn(commentUploadDTO, userEmail, postId);
+        CommentResponseDTO commentOnComment = commentService.commentOn(commentUploadDTO, userEmail, postId);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(commentOnComment);
         return ResponseEntity.ok(responseDTO);
     }
@@ -44,12 +47,19 @@ public class CommentApiController {
     @MyLog
     public ResponseEntity<?> update(@RequestBody CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, @PathVariable Long commentId) {
         String userEmail = getUserEmail();
-        CommentResponseDTO.CommentUpdateDTO updateComment = commentService.update(commentUpdateDTO, userEmail, commentId);
+        CommentResponseDTO updateComment = commentService.update(commentUpdateDTO, userEmail, commentId);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(updateComment);
         return ResponseEntity.ok(responseDTO);
     }
 
     // 댓글 조회
+    @GetMapping("/findAll/{postId}")
+    @MyLog
+    public ResponseEntity<?> findAll(@PathVariable Long postId) {
+        List<CommentResponseDTO> comments = commentService.findAll(postId);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(comments);
+        return ResponseEntity.ok(responseDTO);
+    }
 
 
     private String getUserEmail() {

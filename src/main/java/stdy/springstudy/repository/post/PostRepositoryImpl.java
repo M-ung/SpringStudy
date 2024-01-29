@@ -17,7 +17,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     public PostResponseDTO.PostFindOneDTO findPostWithUserByPostId(Long postId) {
                 return queryFactory
                     .select(Projections.constructor(PostResponseDTO.PostFindOneDTO.class,
-                    post.id,
+                            post.id,
                             post.title,
                             post.content,
                             post.uploadDate,

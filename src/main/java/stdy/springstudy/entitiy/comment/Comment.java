@@ -11,6 +11,9 @@ import stdy.springstudy.entitiy.user.User;
 
 import java.time.LocalDateTime;
 
+import static stdy.springstudy.entitiy.comment.QComment.comment;
+import static stdy.springstudy.entitiy.post.QPost.post;
+
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)

@@ -10,14 +10,15 @@ import stdy.springstudy.core.exception.Exception404;
 import stdy.springstudy.core.exception.Exception500;
 import stdy.springstudy.dto.comment.CommentRequestDTO;
 import stdy.springstudy.dto.comment.CommentResponseDTO;
-import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.entitiy.comment.Comment;
 import stdy.springstudy.entitiy.post.Post;
 import stdy.springstudy.entitiy.user.User;
 import stdy.springstudy.repository.comment.CommentRepository;
+import stdy.springstudy.repository.comment.CommentRepositoryImpl;
 import stdy.springstudy.repository.post.PostRepository;
 import stdy.springstudy.repository.user.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,19 +28,20 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
     final private PostRepository postRepository;
     final private CommentRepository commentRepository;
+    final private CommentRepositoryImpl commentRepositoryImpl;
     final private UserRepository userRepository;
 
     // 댓글 달기
     @Override
     @Transactional
     @MyLog
-    public CommentResponseDTO.CommentUploadDTO commentOn(CommentRequestDTO.CommentUploadDTO commentUploadDTO, String userEmail, Long postId) {
+    public CommentResponseDTO commentOn(CommentRequestDTO.CommentUploadDTO commentUploadDTO, String userEmail, Long postId) {
         User findUser = getUser(userEmail);
         Post findPost = getPost(postId);
 
         try {
             Comment comment = commentRepository.save(new Comment(findUser, findPost, commentUploadDTO.getContent()));
-            return new CommentResponseDTO.CommentUploadDTO(comment);
+            return new CommentResponseDTO(comment);
         } catch (Exception e){
             throw new Exception500("댓글 달기 실패 : "+e.getMessage());
         }
@@ -70,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @MyLog
     @Transactional
-    public CommentResponseDTO.CommentUpdateDTO update(CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, String userEmail, Long commentId) {
+    public CommentResponseDTO update(CommentRequestDTO.CommentUpdateDTO commentUpdateDTO, String userEmail, Long commentId) {
         User findUser = getUser(userEmail);
         Comment findComment = getComment(commentId);
 
@@ -82,13 +84,23 @@ public class CommentServiceImpl implements CommentService {
                 throw new Exception400("user", "회원이 맞지 않습니다.");
             }
 
-            return new CommentResponseDTO.CommentUpdateDTO(findComment);
+            return new CommentResponseDTO(findComment);
         } catch (Exception e){
             throw new Exception500("댓글 수정 실패 : "+e.getMessage());
         }
     }
 
     // 댓글 조회
+    @Override
+    @MyLog
+    public List<CommentResponseDTO> findAll(Long postId) {
+        try {
+            List<CommentResponseDTO> comments = commentRepositoryImpl.findCommentWithUserByPostId(postId);
+            return comments;
+        } catch (Exception e) {
+            throw new Exception404("댓글 조회 실패 : "+e.getMessage());
+        }
+    }
 
 
     private Post getPost(Long id) {

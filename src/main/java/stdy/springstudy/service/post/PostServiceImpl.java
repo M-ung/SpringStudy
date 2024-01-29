@@ -95,7 +95,7 @@ public class PostServiceImpl implements PostService {
     @MyLog
     public PostResponseDTO.PostFindAllDTO findAll(Long postId) {
         return null;
-    }
+    } // 일단 보류
 
 
     private Post getPost(Long id) {
