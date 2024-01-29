@@ -77,7 +77,6 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO.UserFindDTO find(String userEmail) {
         try {
             UserResponseDTO.UserFindDTO findUser = userRepositoryImpl.findUserWithProfileByEmail(userEmail);
-            System.out.println("findUser = " + findUser);
             return findUser;
         } catch (Exception e) {
             throw new Exception404("회원 조회 실패 : "+e.getMessage());
