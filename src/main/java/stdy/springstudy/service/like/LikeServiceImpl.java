@@ -33,12 +33,12 @@ public class LikeServiceImpl implements LikeService {
                     // 좋아요가 이미 존재할 경우
                     like -> {
                         likeRepository.delete(like);
-                        return findUser + "가 " + findPost + "에 좋아요를 취소함.";
+                        return "좋아요를 취소함";
                     }
             ).orElseGet(() -> {
                 // 좋아요가 없을 경우
                 likeRepository.save(new Like(findUser, findPost));
-                return findUser + "가 " + findPost + "에 좋아요를 누름.";
+                return "좋아요를 누름";
             });
 
             return result;
@@ -52,7 +52,7 @@ public class LikeServiceImpl implements LikeService {
         try {
             long countLike = likeRepository.countByPostId(postId);
             Post findPost = getPost(postId);
-            String result = findPost + "의 좋아요 갯수는 " + countLike + " 이다.";
+            String result = countLike+" 이다";
             return result;
         } catch (Exception e){
             throw new Exception500("좋아요 조회 실패 : "+e.getMessage());
