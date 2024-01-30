@@ -41,6 +41,8 @@ class UserServiceImplTest {
     }
 
     @Test
+    @Transactional
+    @DisplayName("회원 탈퇴 테스트")
     void delete() {
         // given
         insertUserJoinDTO();
@@ -56,6 +58,8 @@ class UserServiceImplTest {
     }
 
     @Test
+    @Transactional
+    @DisplayName("회원 수정 테스트")
     void update() {
         // given
         insertUserJoinDTO();
@@ -74,6 +78,8 @@ class UserServiceImplTest {
     }
 
     @Test
+    @Transactional
+    @DisplayName("회원 조회 테스트")
     void find() {
         // given
         insertUserJoinDTO();
