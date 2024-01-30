@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.dto.user.UserRequestDTO;
@@ -121,36 +122,28 @@ class PostServiceImplTest {
         Assertions.assertThat(post.getCategories()).isEqualTo(categories);
     }
 
-    /** 수정해야 할 부분 **/
-//    @Test
-//    @Transactional
-//    @DisplayName("게시물 조회 테스트")
-//    void findOne() throws Exception {
-//        // given
-//        UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
-//        userJoinDTO.setUserEmail("test@example.com");
-//        userJoinDTO.setUserPassword(bCryptPasswordEncoder.encode("password"));
-//        userJoinDTO.setUserName("test");
-//        User user = userJoinDTO.toEntity();
-//        userRepository.save(user);
-//
-//        List<Category> categories = new ArrayList<>();
-//        categories.add(HUMOR);
-//        categories.add(INFORMATION);
-//        Post post = new Post(1L, "title", "content", categories);
-//        System.out.println("===================================1");
-//        System.out.println("post.getId() = " + post.getId());
-//        postRepository.save(post);
-//
-//        System.out.println("===================================2");
-//        System.out.println("post.getId() = " + post.getId());
-//
-//        // when
-//        PostResponseDTO.PostFindOneDTO findPost = postRepositoryImpl.findPostWithUserByPostId(1L);
-//        System.out.println("===================================3");
-//        System.out.println("post.getId() = " + findPost);
-//
-//        // then
-//        Assertions.assertThat(post.getTitle()).isEqualTo(findPost.getTitle());
-//    }
+    @Test
+    @Transactional
+    @DisplayName("게시물 조회 테스트")
+    void findOne() throws Exception {
+        // given
+        UserRequestDTO.UserJoinDTO userJoinDTO = new UserRequestDTO.UserJoinDTO();
+        userJoinDTO.setUserEmail("test@example.com");
+        userJoinDTO.setUserPassword(bCryptPasswordEncoder.encode("password"));
+        userJoinDTO.setUserName("test");
+        User user = userJoinDTO.toEntity();
+        userRepository.save(user);
+
+        List<Category> categories = new ArrayList<>();
+        categories.add(HUMOR);
+        categories.add(INFORMATION);
+        Post post = new Post("title", "content", categories, user);
+        postRepository.save(post);
+
+        // when
+        PostResponseDTO.PostFindOneDTO findPost = postRepositoryImpl.findPostWithUserByPostId(post.getId());
+
+        // then
+        Assertions.assertThat(post.getTitle()).isEqualTo(findPost.getTitle());
+    }
 }

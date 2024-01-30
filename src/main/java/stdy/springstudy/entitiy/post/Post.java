@@ -48,11 +48,11 @@ public class Post {
         this.content = content;
         this.categories = categories;
     }
-    public Post(Long postId, String title, String content, List<Category> categories) {
-        this.id = postId;
+    public Post(String title, String content, List<Category> categories, User user) {
         this.title = title;
         this.content = content;
         this.categories = categories;
+        this.user = user;
     }
 
 
