@@ -1,4 +1,4 @@
-package stdy.springstudy.service.profile;
+package stdy.springstudy.repository.profile;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ import stdy.springstudy.repository.user.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-class ProfileServiceImplTest {
+class ProfileRepositoryTest {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired

@@ -1,5 +1,6 @@
-package stdy.springstudy.service.user;
+package stdy.springstudy.repository.user;
 
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,14 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import stdy.springstudy.dto.user.UserRequestDTO;
 import stdy.springstudy.dto.user.UserResponseDTO;
 import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.user.UserRepository;
-import stdy.springstudy.repository.user.UserRepositoryImpl;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 @SpringBootTest
 @RunWith(SpringRunner.class)
-class UserServiceImplTest {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired

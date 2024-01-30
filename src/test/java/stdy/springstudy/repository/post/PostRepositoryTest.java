@@ -1,4 +1,4 @@
-package stdy.springstudy.service.post;
+package stdy.springstudy.repository.post;
 
 
 import jakarta.transaction.Transactional;
@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import stdy.springstudy.dto.post.PostResponseDTO;
 import stdy.springstudy.dto.user.UserRequestDTO;
@@ -31,7 +30,7 @@ import static stdy.springstudy.entitiy.category.Category.INFORMATION;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-class PostServiceImplTest {
+class PostRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -60,7 +59,7 @@ class PostServiceImplTest {
         postRepository.save(post);
 
         // when
-        Optional<Post> findPost = postRepository.findById(1L);
+        Optional<Post> findPost = postRepository.findById(post.getId());
 
         // then
         Assertions.assertThat(findPost.get().getTitle()).isEqualTo("title");
