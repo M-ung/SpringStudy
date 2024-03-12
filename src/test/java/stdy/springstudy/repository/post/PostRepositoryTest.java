@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import stdy.springstudy.dto.post.PostResponseDTO;
-import stdy.springstudy.dto.user.UserRequestDTO;
-import stdy.springstudy.entitiy.category.Category;
-import stdy.springstudy.entitiy.post.Post;
-import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.post.PostRepository;
-import stdy.springstudy.repository.post.PostRepositoryImpl;
-import stdy.springstudy.repository.user.UserRepository;
+import stdy.springstudy.domain.post.dto.PostResponseDTO;
+import stdy.springstudy.domain.post.repository.PostRepository;
+import stdy.springstudy.domain.post.repository.PostRepositoryImpl;
+import stdy.springstudy.domain.user.dto.UserRequestDTO;
+import stdy.springstudy.domain.category.Category;
+import stdy.springstudy.domain.post.entity.Post;
+import stdy.springstudy.domain.user.entity.User;
+import stdy.springstudy.domain.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static stdy.springstudy.entitiy.category.Category.HUMOR;
-import static stdy.springstudy.entitiy.category.Category.INFORMATION;
+import static stdy.springstudy.domain.category.Category.HUMOR;
+import static stdy.springstudy.domain.category.Category.INFORMATION;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import stdy.springstudy.dto.user.UserRequestDTO;
-import stdy.springstudy.entitiy.profile.Profile;
-import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.profile.ProfileRepository;
-import stdy.springstudy.repository.user.UserRepository;
+import stdy.springstudy.domain.profile.repository.ProfileRepository;
+import stdy.springstudy.domain.user.dto.UserRequestDTO;
+import stdy.springstudy.domain.profile.entity.Profile;
+import stdy.springstudy.domain.user.entity.User;
+import stdy.springstudy.domain.user.repository.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

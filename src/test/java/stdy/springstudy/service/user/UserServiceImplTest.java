@@ -9,10 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import stdy.springstudy.dto.user.UserRequestDTO;
-import stdy.springstudy.dto.user.UserResponseDTO;
-import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.user.UserRepository;
+import stdy.springstudy.domain.user.dto.UserRequestDTO;
+import stdy.springstudy.domain.user.dto.UserResponseDTO;
+import stdy.springstudy.domain.user.entity.User;
+import stdy.springstudy.domain.user.repository.UserRepository;
+import stdy.springstudy.domain.user.service.UserServiceImpl;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;

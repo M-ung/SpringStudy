@@ -9,19 +9,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import stdy.springstudy.core.exception.Exception404;
-import stdy.springstudy.dto.comment.CommentRequestDTO;
-import stdy.springstudy.dto.comment.CommentResponseDTO;
-import stdy.springstudy.dto.post.PostRequestDTO;
-import stdy.springstudy.dto.user.UserRequestDTO;
-import stdy.springstudy.entitiy.category.Category;
-import stdy.springstudy.entitiy.comment.Comment;
-import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.comment.CommentRepository;
-import stdy.springstudy.repository.post.PostRepository;
-import stdy.springstudy.repository.user.UserRepository;
-import stdy.springstudy.service.post.PostServiceImpl;
-import stdy.springstudy.service.user.UserServiceImpl;
+import stdy.springstudy.domain.comment.service.CommentServiceImpl;
+import stdy.springstudy.global.common.exception.Exception404;
+import stdy.springstudy.domain.comment.dto.CommentRequestDTO;
+import stdy.springstudy.domain.comment.dto.CommentResponseDTO;
+import stdy.springstudy.domain.post.dto.PostRequestDTO;
+import stdy.springstudy.domain.user.dto.UserRequestDTO;
+import stdy.springstudy.domain.category.Category;
+import stdy.springstudy.domain.comment.entity.Comment;
+import stdy.springstudy.domain.user.entity.User;
+import stdy.springstudy.domain.comment.repository.CommentRepository;
+import stdy.springstudy.domain.user.repository.UserRepository;
+import stdy.springstudy.domain.post.service.PostServiceImpl;
+import stdy.springstudy.domain.user.service.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
-import static stdy.springstudy.entitiy.category.Category.HUMOR;
-import static stdy.springstudy.entitiy.category.Category.INFORMATION;
+import static stdy.springstudy.domain.category.Category.HUMOR;
+import static stdy.springstudy.domain.category.Category.INFORMATION;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

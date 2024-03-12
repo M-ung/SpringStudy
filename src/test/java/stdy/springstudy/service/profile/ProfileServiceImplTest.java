@@ -9,16 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import stdy.springstudy.dto.profile.ProfileRequestDTO;
-import stdy.springstudy.dto.profile.ProfileResponseDTO;
-import stdy.springstudy.dto.user.UserRequestDTO;
-import stdy.springstudy.entitiy.user.User;
-import stdy.springstudy.repository.user.UserRepository;
-import stdy.springstudy.service.user.UserService;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import stdy.springstudy.domain.profile.dto.ProfileRequestDTO;
+import stdy.springstudy.domain.profile.dto.ProfileResponseDTO;
+import stdy.springstudy.domain.profile.service.ProfileServiceImpl;
+import stdy.springstudy.domain.user.dto.UserRequestDTO;
+import stdy.springstudy.domain.user.entity.User;
+import stdy.springstudy.domain.user.repository.UserRepository;
+import stdy.springstudy.domain.user.service.UserService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
